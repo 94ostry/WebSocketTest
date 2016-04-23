@@ -1,0 +1,42 @@
+
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.cargo'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.2.1'
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    providedCompile "javax:javaee-api:7.0"
+
+    def cargoVersion = '1.4.15'
+    cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
+            "org.codehaus.cargo:cargo-ant:$cargoVersion"
+    cargo "org.wildfly:wildfly-controller-client:8.2.1.Final"
+}
+
+cargo {
+    containerId = 'wildfly9x'
+
+    remote {
+        hostname = '192.168.99.100'
+        username = 'jls'
+        password = 'jls'
+    }
+}
+

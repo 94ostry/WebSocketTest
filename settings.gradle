@@ -1,0 +1,4 @@
+rootProject.name = 'WebSocketTest'
+include 'client'
+include 'server'
+
